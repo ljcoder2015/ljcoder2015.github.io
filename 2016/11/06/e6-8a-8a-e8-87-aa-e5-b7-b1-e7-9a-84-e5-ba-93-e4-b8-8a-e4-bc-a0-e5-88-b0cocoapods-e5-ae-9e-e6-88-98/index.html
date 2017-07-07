@@ -1,0 +1,984 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="上传到cocoapods,使用trunk上传到pod," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="最近公司要把我们的产品活动盒子上传到cocoapods，遇到了一些新坑，所以决定自己重新总结一下，做一下详细的记录。 1. 步骤总结 把库上传到github 创建podspec文件和LICENSE文件 使用trunk上传到pod 验证是否成功">
+<meta name="keywords" content="上传到cocoapods,使用trunk上传到pod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="把自己的库上传到cocoapods实战">
+<meta property="og:url" content="http://ljcoder.com/2016/11/06/e6-8a-8a-e8-87-aa-e5-b7-b1-e7-9a-84-e5-ba-93-e4-b8-8a-e4-bc-a0-e5-88-b0cocoapods-e5-ae-9e-e6-88-98/index.html">
+<meta property="og:site_name" content="LJCoder的博客">
+<meta property="og:description" content="最近公司要把我们的产品活动盒子上传到cocoapods，遇到了一些新坑，所以决定自己重新总结一下，做一下详细的记录。 1. 步骤总结 把库上传到github 创建podspec文件和LICENSE文件 使用trunk上传到pod 验证是否成功">
+<meta property="og:image" content="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0-300x57.png">
+<meta property="og:updated_time" content="2017-07-07T09:48:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="把自己的库上传到cocoapods实战">
+<meta name="twitter:description" content="最近公司要把我们的产品活动盒子上传到cocoapods，遇到了一些新坑，所以决定自己重新总结一下，做一下详细的记录。 1. 步骤总结 把库上传到github 创建podspec文件和LICENSE文件 使用trunk上传到pod 验证是否成功">
+<meta name="twitter:image" content="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0-300x57.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://ljcoder.com/2016/11/06/e6-8a-8a-e8-87-aa-e5-b7-b1-e7-9a-84-e5-ba-93-e4-b8-8a-e4-bc-a0-e5-88-b0cocoapods-e5-ae-9e-e6-88-98/"/>
+
+
+
+
+
+  <title> 把自己的库上传到cocoapods实战 | LJCoder的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LJCoder的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录iOS开发中的点点滴滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ljcoder.com/2016/11/06/e6-8a-8a-e8-87-aa-e5-b7-b1-e7-9a-84-e5-ba-93-e4-b8-8a-e4-bc-a0-e5-88-b0cocoapods-e5-ae-9e-e6-88-98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJCoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJCoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                把自己的库上传到cocoapods实战
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T12:11:55+08:00">
+                2016-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOSDevelop/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/11/06/e6-8a-8a-e8-87-aa-e5-b7-b1-e7-9a-84-e5-ba-93-e4-b8-8a-e4-bc-a0-e5-88-b0cocoapods-e5-ae-9e-e6-88-98/" class="leancloud_visitors" data-flag-title="把自己的库上传到cocoapods实战">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近公司要把我们的产品<a href="http://www.huodonghezi.com/" target="_blank" rel="external">活动盒子</a>上传到cocoapods，遇到了一些新坑，所以决定自己重新总结一下，做一下详细的记录。</p>
+<h3 id="1-步骤总结"><a href="#1-步骤总结" class="headerlink" title="1. 步骤总结"></a>1. 步骤总结</h3><ol>
+<li>把库上传到github</li>
+<li>创建podspec文件和LICENSE文件</li>
+<li>使用trunk上传到pod</li>
+<li>验证是否成功<a id="more"></a>
+<h3 id="2-上传到github"><a href="#2-上传到github" class="headerlink" title="2. 上传到github"></a>2. 上传到github</h3></li>
+</ol>
+<p>我这里说一下上传到组织类型的github账号要怎么操作，现在有两个github账号，一个是mcmore，组织账号，另一个是ljcoder2015，是我个人的github账号，我是mcmore这个组织的成员。</p>
+<p>首先mcmore创建一个名为hezi-sdk-for-ios的仓库，接着用ljcoder2015这个账号Fork一下这个仓库，clone这个仓库到本地。</p>
+<pre><code>git clone git@github.com:ljcoder2015/hezi-sdk-for-ios.git
+`&lt;/pre&gt;
+
+把库拷贝到这个本地仓库中，然后提交到github上，具体指令为
+
+&lt;pre&gt;`git add -A
+git commit -m &quot;更改说明&quot;
+git push
+`&lt;/pre&gt;
+
+这个时候需要去github上创建一个pull request，向mcmore提交合并请求
+[![QQ20161031-0](http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0-300x37.png)](http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0.png)
+
+等mcmore同意合并后，我们就发现mcmore创建的[仓库](https://github.com/mcmore/hezi-sdk-for-ios)已经有我们上传的库了。
+关于Fork的其它内容可以查看[https://linux.cn/article-4292-1-rss.html](https://linux.cn/article-4292-1-rss.html)
+
+### 3\. 创建podspec和LICENSE文件
+
+用vim创建`HeziSDK.podspec`，HeziSDK是你的库名，注意，如果使用自带文本编辑器编辑，可能会引发格式错误。
+
+&lt;pre&gt;`cd 你的仓库目录
+vim HeziSDK.podspec
+`&lt;/pre&gt;
+
+插入下面的内容
+
+&lt;pre&gt;`Pod::Spec.new do |s|
+s.name = &apos;HeziSDK&apos;
+s.version = &apos;1.2.1&apos;
+s.license = &apos;MIT&apos;
+s.summary = &apos;活动盒子SDK&apos;
+s.homepage = &apos;https://github.com/mcmore/hezi-sdk-for-ios&apos;
+s.authors = { &apos;mcmore&apos; =&amp;gt; &apos;ljcoder@163.com&apos; }
+s.source = { :git =&amp;gt; &quot;https://github.com/mcmore/hezi-sdk-for-ios.git&quot;, :tag =&amp;gt; &quot;1.2.1&quot;}
+s.requires_arc = true
+s.ios.deployment_target = &apos;7.0&apos;
+s.source_files = &quot;HeziSDK/*.{h,m}&quot;, &quot;HeziSDK/HeziSDK.a&quot;
+s.source = &quot;HeziSDK/HeziSDK.bundle&quot;
+s.frameworks = &apos;UIKit&apos;
+end
+`&lt;/pre&gt;
+
+只需要把以下内容改成你自己的即可
+
+s.name ：库的名字
+s.version ： 版本，要和github上的仓库tag对应
+s.license ：授权
+s.summary ：描述
+s.homepage = github仓库主页
+s.authors ：作者名字和联系邮箱
+s.source ：仓库地址
+s.requires_arc ： 是否ARC
+s.ios.deployment_target ： 最低支持的系统版本
+s.source_files ： 资源文件
+s.source ： bundle文件
+s.frameworks ：所需的framework，多个用英文逗号隔开
+
+创建授权文件LICENSE
+
+&lt;pre&gt;`vim LICENSE
+`&lt;/pre&gt;
+
+我用的是MIT的许可协议，内容是拷贝维基百科上[MIT许可证](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89)的声明
+
+&lt;pre&gt;`Copyright (C) (year) (copyright holders)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+`&lt;/pre&gt;
+
+&lt;span class=&quot;lang:objc decode:true crayon-inline &quot;&gt;`(year) (copyright holders)`&lt;/span&gt; 替换这里的内容为你自己的即可。
+
+### 4\. 使用trunk上传到pod
+</code></pre><ul>
+<li><p>上传前的准备</p>
+<p>在上传之前，需要把新添加的LICENSE文件和HeziSDK.podspec push到mcmore组织号的对应仓库里面。并叫组织号管理员添加一个tag，这个tag要和你的podspec文件中的版本对应，不然验证会出错。<code>注意一下,一定是企业号的仓库添加tag才行，你自己给自己的仓库添加tag是没用的</code></p>
+<pre>`git tag -a 1.2.1 -m 'my version 1.2.1'
+git push origin --tags
+`</pre>
+
+<p>git tag 指令说名可以看这里<a href="https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE" target="_blank" rel="external">https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE</a></p>
+<ul>
+<li>使用trunk上传pod</li>
+</ul>
+<p>在注册trunk之前，我们需要确认当前的CocoaPods版本是否足够新。trunk需要pod在0.33及以上版本，如果你不满足要求，打开Terminal使用ruby的gem命令更新pod:</p>
+<pre>`sudo gem install cocoapods
+`</pre>
+
+<p>更新结束后，我们开始注册trunk：</p>
+<pre>`pod trunk register ljcoder@163.com 'mcmore' --verbose
+`</pre>
+
+<p>ljcoder@163.com 是邮箱。mcmor是用户名。–verbose参数是为了便于输出注册过程中的调试信息。执行上面的语句后，你的邮箱将会受到一封带有验证链接的邮件，如果没有请去垃圾箱找找，有可能被屏蔽了。点击邮件的链接就完成了trunk注册流程。使用下面的命令可以向trunk服务器查询自己的注册信息：</p>
+<pre>`pod trunk me
+`</pre>
+
+<p>输出如下信息就表示你注册成功，就可以上传了。</p>
+<pre>`pod trunk push HeziSDK.podspec
+`</pre>
+
+<p>出现下面的信息，表示上传成功了。</p>
+<p><a href="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0.png" target="_blank" rel="external"><img src="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0-300x57.png" alt="QQ20161103-0"></a></p>
+<pre>`pod search HeziSDK
+`</pre>
+
+<p>执行后可以查看到信息表明成功，赶紧新建一个工程试试吧。</p>
+<p>push时可能会遇见的错误</p>
+<p><pre>`ERROR | [iOS] unknown: Encountered an unknown error (Simulator iPhone 4s is not available.) during validation.</pre></p>
+</li>
+</ul>
+<p>这个错误是因为是用的Xcode 8打包的库，已经不支持iPhone 4s了，解决这个问题的办法就是升级pod到新版本即可。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/上传到cocoapods/" rel="tag"># 上传到cocoapods</a>
+          
+            <a href="/tags/使用trunk上传到pod/" rel="tag"># 使用trunk上传到pod</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/29/http-e7-ae-80-e4-bb-8b/" rel="next" title="HTTP简介">
+                <i class="fa fa-chevron-left"></i> HTTP简介
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/16/wkwebview-e5-b0-81-e8-a3-85/" rel="prev" title="WKWebView 封装">
+                WKWebView 封装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="LJCoder" />
+          <p class="site-author-name" itemprop="name">LJCoder</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/ljcoder2015" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hudongdong.com/" title="胡东东博客" target="_blank">胡东东博客</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-步骤总结"><span class="nav-number">1.</span> <span class="nav-text">1. 步骤总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-上传到github"><span class="nav-number">2.</span> <span class="nav-text">2. 上传到github</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LJCoder</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("s6s8rR7dti8eoqBhloboauwd-gzGzoHsz", "LuEKbqfe8qxjQ0udT1vBm5jl");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
