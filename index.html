@@ -267,6 +267,176 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://ljcoder.com/2017/07/08/RxSwift-Observable-asDrive后的事件订阅关系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LJCoder">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LJCoder的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/08/RxSwift-Observable-asDrive后的事件订阅关系/" itemprop="url">
+                  RxSwift-Observable asDriver后的事件订阅关系
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-08T11:33:24+08:00">
+                2017-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOSDevelop/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOSDevelop/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/08/RxSwift-Observable-asDrive后的事件订阅关系/" class="leancloud_visitors" data-flag-title="RxSwift-Observable asDriver后的事件订阅关系">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><p>创建一个Observable信号，发送next和error信号<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> observer = <span class="type">Observable</span>&lt;<span class="type">Any</span>&gt;.create &#123; (observer) -&gt; <span class="type">Disposable</span> <span class="keyword">in</span></div><div class="line">                  observer.onNext(<span class="string">"next"</span>)</div><div class="line">                  observer.onError(<span class="type">LJError</span>.faild)</div><div class="line">                  <span class="comment">//observer.onCompleted()</span></div><div class="line"></div><div class="line">                  <span class="keyword">return</span> <span class="type">Disposables</span>.create()</div><div class="line">                &#125;</div></pre></td></tr></table></figure></p>
+<p>转换成Driver并订阅<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">observer.asDriver(onErrorJustReturn: &quot;driver error&quot;)</div><div class="line">            .drive(onNext: &#123; (next) in</div><div class="line">                print(&quot;driver onNext: \(next)&quot;)</div><div class="line">            &#125;, onCompleted: &#123;</div><div class="line">                print(&quot;driver onCompleted&quot;)</div><div class="line">            &#125;, onDisposed: &#123;</div><div class="line">                print(&quot;driver onDisposed&quot;)</div><div class="line">            &#125;)</div><div class="line">            .disposed(by: disposed)</div><div class="line"></div><div class="line">// output:</div><div class="line">driver onNext: next</div><div class="line">driver onNext: driver error</div><div class="line">driver onCompleted</div><div class="line">driver onDisposed</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/08/RxSwift-Observable-asDrive后的事件订阅关系/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://ljcoder.com/2016/11/16/wkwebview-e5-b0-81-e8-a3-85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1703,171 +1873,13 @@ self.view.addSubview(label)</pre>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://ljcoder.com/2015/10/21/ios-e6-95-88-e6-9e-9c-e5-ae-8c-e7-be-8e-e5-a4-84-e7-90-86-e9-94-ae-e7-9b-98-e4-ba-8b-e4-bb-b6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="LJCoder">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LJCoder的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2015/10/21/ios-e6-95-88-e6-9e-9c-e5-ae-8c-e7-be-8e-e5-a4-84-e7-90-86-e9-94-ae-e7-9b-98-e4-ba-8b-e4-bb-b6/" itemprop="url">
-                  iOS效果 - 处理键盘弹出事件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-21T17:36:33+08:00">
-                2015-10-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOSDevelop/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS开发</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2015/10/21/ios-e6-95-88-e6-9e-9c-e5-ae-8c-e7-be-8e-e5-a4-84-e7-90-86-e9-94-ae-e7-9b-98-e4-ba-8b-e4-bb-b6/" class="leancloud_visitors" data-flag-title="iOS效果 - 处理键盘弹出事件">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>在开发过程中，我们基本上都要进行键盘事件的处理，在键盘弹出的时候为了避免输入框被挡住，我们需要把整个view向上移动一定距离，键盘隐藏的时候又恢复到原来的位置。今天给大家分享的方法适合处理像微信那样输入框跟随键盘无缝同步上移。</p>
-<ol>
-<li><a href="#first">实现的效果</a></li>
-<li><a href="#secend">实现思路</a></li>
-<li><a href="#third">Demo下载</a>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2015/10/21/ios-e6-95-88-e6-9e-9c-e5-ae-8c-e7-be-8e-e5-a4-84-e7-90-86-e9-94-ae-e7-9b-98-e4-ba-8b-e4-bb-b6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1910,7 +1922,7 @@ self.view.addSubview(label)</pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1921,7 +1933,7 @@ self.view.addSubview(label)</pre>
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1932,7 +1944,7 @@ self.view.addSubview(label)</pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
