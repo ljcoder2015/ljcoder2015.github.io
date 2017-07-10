@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://ljcoder.com/2017/07/08/RxSwift-Observable-asDrive后的事件订阅关系/index.html">
 <meta property="og:site_name" content="LJCoder的博客">
 <meta property="og:description" content="实验创建一个Observable信号，发送next和error信号1234567let observer = Observable&amp;lt;Any&amp;gt;.create &amp;#123; (observer) -&amp;gt; Disposable in                  observer.onNext(&quot;next&quot;)                  observer.onError(LJE">
-<meta property="og:updated_time" content="2017-07-08T06:29:48.000Z">
+<meta property="og:updated_time" content="2017-07-10T03:05:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxSwift-Observable asDriver后的事件订阅关系">
 <meta name="twitter:description" content="实验创建一个Observable信号，发送next和error信号1234567let observer = Observable&amp;lt;Any&amp;gt;.create &amp;#123; (observer) -&amp;gt; Disposable in                  observer.onNext(&quot;next&quot;)                  observer.onError(LJE">
@@ -395,7 +395,7 @@
 <ol>
 <li><code>observer.onNext()</code> 可以触发 <code>drive(onNext: {})</code></li>
 <li><code>observer.onError()</code> 也可触发 <code>drive(onNext: {})</code>, 但是返回的不是error信息，是<code>onErrorJustReturn</code>的值</li>
-<li><code>observer.onError()</code> 和 <code>observer.onCompleted()</code> 都会触发 <code>.drive(onCompleted:{})</code></li>
+<li><code>observer.onError()</code> 和 <code>observer.onCompleted()</code> 都会触发 <code>.drive(onCompleted:{})</code><br>所以，如果要处理错误信号，应该使用Observable。如果不产生错误信号，使用Driver</li>
 </ol>
 
       
