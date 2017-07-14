@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="上传到cocoapods,使用trunk上传到pod," />
+  <meta name="keywords" content="cocoapods,pod," />
 
 
 
@@ -88,18 +88,19 @@
 
 
 <meta name="description" content="最近公司要把我们的产品活动盒子上传到cocoapods，遇到了一些新坑，所以决定自己重新总结一下，做一下详细的记录。 1. 步骤总结 把库上传到github 创建podspec文件和LICENSE文件 使用trunk上传到pod 验证是否成功">
-<meta name="keywords" content="上传到cocoapods,使用trunk上传到pod">
+<meta name="keywords" content="cocoapods,pod">
 <meta property="og:type" content="article">
 <meta property="og:title" content="把自己的库上传到cocoapods实战">
 <meta property="og:url" content="http://ljcoder.com/2016/11/06/e6-8a-8a-e8-87-aa-e5-b7-b1-e7-9a-84-e5-ba-93-e4-b8-8a-e4-bc-a0-e5-88-b0cocoapods-e5-ae-9e-e6-88-98/index.html">
 <meta property="og:site_name" content="LJCoder的博客">
 <meta property="og:description" content="最近公司要把我们的产品活动盒子上传到cocoapods，遇到了一些新坑，所以决定自己重新总结一下，做一下详细的记录。 1. 步骤总结 把库上传到github 创建podspec文件和LICENSE文件 使用trunk上传到pod 验证是否成功">
+<meta property="og:image" content="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0.png">
 <meta property="og:image" content="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0-300x57.png">
-<meta property="og:updated_time" content="2017-07-07T09:48:12.000Z">
+<meta property="og:updated_time" content="2017-07-14T09:25:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="把自己的库上传到cocoapods实战">
 <meta name="twitter:description" content="最近公司要把我们的产品活动盒子上传到cocoapods，遇到了一些新坑，所以决定自己重新总结一下，做一下详细的记录。 1. 步骤总结 把库上传到github 创建podspec文件和LICENSE文件 使用trunk上传到pod 验证是否成功">
-<meta name="twitter:image" content="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0-300x57.png">
+<meta name="twitter:image" content="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0.png">
 
 
 
@@ -383,55 +384,37 @@
 <li>创建podspec文件和LICENSE文件</li>
 <li>使用trunk上传到pod</li>
 <li>验证是否成功<a id="more"></a>
-<h3 id="2-上传到github"><a href="#2-上传到github" class="headerlink" title="2. 上传到github"></a>2. 上传到github</h3></li>
+</li>
 </ol>
-<p>我这里说一下上传到组织类型的github账号要怎么操作，现在有两个github账号，一个是mcmore，组织账号，另一个是ljcoder2015，是我个人的github账号，我是mcmore这个组织的成员。</p>
+<h3 id="2-上传到github"><a href="#2-上传到github" class="headerlink" title="2. 上传到github"></a>2. 上传到github</h3><p>我这里说一下上传到组织类型的github账号要怎么操作，现在有两个github账号，一个是mcmore，组织账号，另一个是ljcoder2015，是我个人的github账号，我是mcmore这个组织的成员。</p>
 <p>首先mcmore创建一个名为hezi-sdk-for-ios的仓库，接着用ljcoder2015这个账号Fork一下这个仓库，clone这个仓库到本地。</p>
 <pre><code>git clone git@github.com:ljcoder2015/hezi-sdk-for-ios.git
-`&lt;/pre&gt;
-
-把库拷贝到这个本地仓库中，然后提交到github上，具体指令为
-
-&lt;pre&gt;`git add -A
+</code></pre><p>把库拷贝到这个本地仓库中，然后提交到github上，具体指令为</p>
+<pre><code>git add -A
 git commit -m &quot;更改说明&quot;
 git push
-`&lt;/pre&gt;
-
-这个时候需要去github上创建一个pull request，向mcmore提交合并请求
-[![QQ20161031-0](http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0-300x37.png)](http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0.png)
-
-等mcmore同意合并后，我们就发现mcmore创建的[仓库](https://github.com/mcmore/hezi-sdk-for-ios)已经有我们上传的库了。
-关于Fork的其它内容可以查看[https://linux.cn/article-4292-1-rss.html](https://linux.cn/article-4292-1-rss.html)
-
-### 3\. 创建podspec和LICENSE文件
-
-用vim创建`HeziSDK.podspec`，HeziSDK是你的库名，注意，如果使用自带文本编辑器编辑，可能会引发格式错误。
-
-&lt;pre&gt;`cd 你的仓库目录
+</code></pre><p>这个时候需要去github上创建一个pull request，向mcmore提交合并请求<br><img src="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0.png" alt="QQ20161031-0](http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161031-0-300x37.png)"></p>
+<p>等mcmore同意合并后，我们就发现mcmore创建的<a href="https://github.com/mcmore/hezi-sdk-for-ios" target="_blank" rel="external">仓库</a>已经有我们上传的库了。<br>关于Fork的其它内容可以查看<a href="https://linux.cn/article-4292-1-rss.html" target="_blank" rel="external">https://linux.cn/article-4292-1-rss.html</a></p>
+<h3 id="3-创建podspec和LICENSE文件"><a href="#3-创建podspec和LICENSE文件" class="headerlink" title="3. 创建podspec和LICENSE文件"></a>3. 创建podspec和LICENSE文件</h3><p>用vim创建<code>HeziSDK.podspec</code>，HeziSDK是你的库名，注意，如果使用自带文本编辑器编辑，可能会引发格式错误。</p>
+<pre><code>cd 你的仓库目录
 vim HeziSDK.podspec
-`&lt;/pre&gt;
-
-插入下面的内容
-
-&lt;pre&gt;`Pod::Spec.new do |s|
+</code></pre><p>插入下面的内容</p>
+<pre><code>Pod::Spec.new do |s|
 s.name = &apos;HeziSDK&apos;
 s.version = &apos;1.2.1&apos;
 s.license = &apos;MIT&apos;
 s.summary = &apos;活动盒子SDK&apos;
 s.homepage = &apos;https://github.com/mcmore/hezi-sdk-for-ios&apos;
-s.authors = { &apos;mcmore&apos; =&amp;gt; &apos;ljcoder@163.com&apos; }
-s.source = { :git =&amp;gt; &quot;https://github.com/mcmore/hezi-sdk-for-ios.git&quot;, :tag =&amp;gt; &quot;1.2.1&quot;}
+s.authors = { &apos;mcmore&apos; =&gt; &apos;ljcoder@163.com&apos; }
+s.source = { :git =&gt; &quot;https://github.com/mcmore/hezi-sdk-for-ios.git&quot;, :tag =&gt; &quot;1.2.1&quot;}
 s.requires_arc = true
 s.ios.deployment_target = &apos;7.0&apos;
 s.source_files = &quot;HeziSDK/*.{h,m}&quot;, &quot;HeziSDK/HeziSDK.a&quot;
 s.source = &quot;HeziSDK/HeziSDK.bundle&quot;
 s.frameworks = &apos;UIKit&apos;
 end
-`&lt;/pre&gt;
-
-只需要把以下内容改成你自己的即可
-
-s.name ：库的名字
+</code></pre><p>只需要把以下内容改成你自己的即可</p>
+<pre><code>s.name ：库的名字
 s.version ： 版本，要和github上的仓库tag对应
 s.license ：授权
 s.summary ：描述
@@ -443,64 +426,30 @@ s.ios.deployment_target ： 最低支持的系统版本
 s.source_files ： 资源文件
 s.source ： bundle文件
 s.frameworks ：所需的framework，多个用英文逗号隔开
-
-创建授权文件LICENSE
-
-&lt;pre&gt;`vim LICENSE
-`&lt;/pre&gt;
-
-我用的是MIT的许可协议，内容是拷贝维基百科上[MIT许可证](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89)的声明
-
-&lt;pre&gt;`Copyright (C) (year) (copyright holders)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-`&lt;/pre&gt;
-
-&lt;span class=&quot;lang:objc decode:true crayon-inline &quot;&gt;`(year) (copyright holders)`&lt;/span&gt; 替换这里的内容为你自己的即可。
-
-### 4\. 使用trunk上传到pod
-</code></pre><ul>
-<li><p>上传前的准备</p>
+</code></pre><h3 id="4-使用trunk上传到pod"><a href="#4-使用trunk上传到pod" class="headerlink" title="4. 使用trunk上传到pod"></a>4. 使用trunk上传到pod</h3><ul>
+<li>上传前的准备</li>
+</ul>
 <p>在上传之前，需要把新添加的LICENSE文件和HeziSDK.podspec push到mcmore组织号的对应仓库里面。并叫组织号管理员添加一个tag，这个tag要和你的podspec文件中的版本对应，不然验证会出错。<code>注意一下,一定是企业号的仓库添加tag才行，你自己给自己的仓库添加tag是没用的</code></p>
-<pre>`git tag -a 1.2.1 -m 'my version 1.2.1'
+<pre><code>git tag -a 1.2.1 -m &apos;my version 1.2.1&apos;
 git push origin --tags
-`</pre>
-
-<p>git tag 指令说名可以看这里<a href="https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE" target="_blank" rel="external">https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE</a></p>
+</code></pre><p>git tag 指令说名可以看这里<a href="https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE" target="_blank" rel="external">https://git-scm.com/book/zh/v1/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE</a></p>
 <ul>
 <li>使用trunk上传pod</li>
 </ul>
 <p>在注册trunk之前，我们需要确认当前的CocoaPods版本是否足够新。trunk需要pod在0.33及以上版本，如果你不满足要求，打开Terminal使用ruby的gem命令更新pod:</p>
-<pre>`sudo gem install cocoapods
-`</pre>
-
-<p>更新结束后，我们开始注册trunk：</p>
-<pre>`pod trunk register ljcoder@163.com 'mcmore' --verbose
-`</pre>
-
-<p>ljcoder@163.com 是邮箱。mcmor是用户名。–verbose参数是为了便于输出注册过程中的调试信息。执行上面的语句后，你的邮箱将会受到一封带有验证链接的邮件，如果没有请去垃圾箱找找，有可能被屏蔽了。点击邮件的链接就完成了trunk注册流程。使用下面的命令可以向trunk服务器查询自己的注册信息：</p>
-<pre>`pod trunk me
-`</pre>
-
-<p>输出如下信息就表示你注册成功，就可以上传了。</p>
-<pre>`pod trunk push HeziSDK.podspec
-`</pre>
-
-<p>出现下面的信息，表示上传成功了。</p>
-<p><a href="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0.png" target="_blank" rel="external"><img src="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0-300x57.png" alt="QQ20161103-0"></a></p>
-<pre>`pod search HeziSDK
-`</pre>
-
-<p>执行后可以查看到信息表明成功，赶紧新建一个工程试试吧。</p>
+<pre><code>sudo gem install cocoapods
+</code></pre><p>更新结束后，我们开始注册trunk：</p>
+<pre><code>pod trunk register ljcoder@163.com &apos;mcmore&apos; --verbose
+</code></pre><p>ljcoder@163.com 是邮箱。mcmor是用户名。–verbose参数是为了便于输出注册过程中的调试信息。执行上面的语句后，你的邮箱将会受到一封带有验证链接的邮件，如果没有请去垃圾箱找找，有可能被屏蔽了。点击邮件的链接就完成了trunk注册流程。使用下面的命令可以向trunk服务器查询自己的注册信息：</p>
+<pre><code>pod trunk me
+</code></pre><p>输出如下信息就表示你注册成功，就可以上传了。</p>
+<pre><code>pod trunk push HeziSDK.podspec
+</code></pre><p>出现下面的信息，表示上传成功了。<br><a href="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0.png" target="_blank" rel="external"><img src="http://www.ljcoder.com/wp-content/uploads/2016/11/QQ20161103-0-300x57.png" alt="QQ20161103-0"></a></p>
+<pre><code>pod search HeziSDK
+</code></pre><p>执行后可以查看到信息表明成功，赶紧新建一个工程试试吧。</p>
 <p>push时可能会遇见的错误</p>
-<p><pre>`ERROR | [iOS] unknown: Encountered an unknown error (Simulator iPhone 4s is not available.) during validation.</pre></p>
-</li>
-</ul>
-<p>这个错误是因为是用的Xcode 8打包的库，已经不支持iPhone 4s了，解决这个问题的办法就是升级pod到新版本即可。</p>
+<pre><code>ERROR | [iOS] unknown: Encountered an unknown error (Simulator iPhone 4s is not available.) during validation.
+</code></pre><p>这个错误是因为是用的Xcode 8打包的库，已经不支持iPhone 4s了，解决这个问题的办法就是升级pod到新版本即可。</p>
 
       
     </div>
@@ -530,9 +479,9 @@ git push origin --tags
       
         <div class="post-tags">
           
-            <a href="/tags/上传到cocoapods/" rel="tag"># 上传到cocoapods</a>
+            <a href="/tags/cocoapods/" rel="tag"># cocoapods</a>
           
-            <a href="/tags/使用trunk上传到pod/" rel="tag"># 使用trunk上传到pod</a>
+            <a href="/tags/pod/" rel="tag"># pod</a>
           
         </div>
       
@@ -657,7 +606,7 @@ git push origin --tags
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -717,7 +666,7 @@ git push origin --tags
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-步骤总结"><span class="nav-number">1.</span> <span class="nav-text">1. 步骤总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-上传到github"><span class="nav-number">2.</span> <span class="nav-text">2. 上传到github</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-步骤总结"><span class="nav-number">1.</span> <span class="nav-text">1. 步骤总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-上传到github"><span class="nav-number">2.</span> <span class="nav-text">2. 上传到github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-创建podspec和LICENSE文件"><span class="nav-number">3.</span> <span class="nav-text">3. 创建podspec和LICENSE文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用trunk上传到pod"><span class="nav-number">4.</span> <span class="nav-text">4. 使用trunk上传到pod</span></a></li></ol></div>
             
 
           </div>
