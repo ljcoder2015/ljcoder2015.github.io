@@ -87,14 +87,21 @@
 
 
 
+<meta name="description" content="LJToolLJTool简介在开发过程中，有一些常用扩展每次都会用到，每次拷贝来拷贝去，有点烦了，就封装成了一个工具库，使用pod来管理，方便多了。LJTool主要分成三大块： 1. 配色类，封装了一些常用的颜色。 2. 控件初始化，把控件的创建和常用的属性设置封装了一下，并且加了一些占位符 3. 其它，包括图片的创建和button的内容排列方式 安装在Podfile加入1pod &amp;apos;LJ">
 <meta name="keywords" content="LJTool">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LJTool">
 <meta property="og:url" content="http://ljcoder.com/2017/07/10/LJTool/index.html">
 <meta property="og:site_name" content="LJCoder的博客">
-<meta property="og:updated_time" content="2017-07-10T06:24:29.000Z">
+<meta property="og:description" content="LJToolLJTool简介在开发过程中，有一些常用扩展每次都会用到，每次拷贝来拷贝去，有点烦了，就封装成了一个工具库，使用pod来管理，方便多了。LJTool主要分成三大块： 1. 配色类，封装了一些常用的颜色。 2. 控件初始化，把控件的创建和常用的属性设置封装了一下，并且加了一些占位符 3. 其它，包括图片的创建和button的内容排列方式 安装在Podfile加入1pod &amp;apos;LJ">
+<meta property="og:image" content="http://image.ljcoder.com/WechatIMG42.jpeg">
+<meta property="og:image" content="http://image.ljcoder.com/WechatIMG41.jpeg">
+<meta property="og:image" content="http://image.ljcoder.com/WechatIMG43.jpeg">
+<meta property="og:updated_time" content="2017-09-19T08:11:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LJTool">
+<meta name="twitter:description" content="LJToolLJTool简介在开发过程中，有一些常用扩展每次都会用到，每次拷贝来拷贝去，有点烦了，就封装成了一个工具库，使用pod来管理，方便多了。LJTool主要分成三大块： 1. 配色类，封装了一些常用的颜色。 2. 控件初始化，把控件的创建和常用的属性设置封装了一下，并且加了一些占位符 3. 其它，包括图片的创建和button的内容排列方式 安装在Podfile加入1pod &amp;apos;LJ">
+<meta name="twitter:image" content="http://image.ljcoder.com/WechatIMG42.jpeg">
 
 
 
@@ -372,7 +379,53 @@
       
 
       
-        
+        <h1 id="LJTool"><a href="#LJTool" class="headerlink" title="LJTool"></a>LJTool</h1><h3 id="LJTool简介"><a href="#LJTool简介" class="headerlink" title="LJTool简介"></a><a href="https://github.com/ljcoder2015/LJTool" target="_blank" rel="external">LJTool</a>简介</h3><p>在开发过程中，有一些常用扩展每次都会用到，每次拷贝来拷贝去，有点烦了，就封装成了一个工具库，使用pod来管理，方便多了。LJTool主要分成三大块：</p>
+<pre><code>1. 配色类，封装了一些常用的颜色。
+2. 控件初始化，把控件的创建和常用的属性设置封装了一下，并且加了一些占位符
+3. 其它，包括图片的创建和button的内容排列方式
+</code></pre><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在<code>Podfile</code>加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod &apos;LJTool&apos;</div></pre></td></tr></table></figure></p>
+<p>然后执行下面命令即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod install</div></pre></td></tr></table></figure></p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p><strong>1. UIColor 类</strong><br>根据RGB创建UIColor<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIColor</span>.lj.color(r: <span class="number">10</span>, g: <span class="number">10</span>, b: <span class="number">10</span>)</div></pre></td></tr></table></figure></p>
+<p>根据16进制创建UIColor<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIColor</span>.lj.color(<span class="number">0x123456</span>, alpha: <span class="number">1</span>)</div></pre></td></tr></table></figure></p>
+<p>一些常用颜色的用法，查看<code>LJColorViewController</code>文件</p>
+<p><img src="http://image.ljcoder.com/WechatIMG42.jpeg" alt="lJTool"></p>
+<p><strong>2. UI Create</strong><br>可看demo中<code>LJTool_UICreateViewController</code>中的用法，创建完后默认会有占位符。</p>
+<p><img src="http://image.ljcoder.com/WechatIMG41.jpeg" alt="LJTool"></p>
+<ul>
+<li><p>UITableView</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> tableView: <span class="type">UITableView</span> = &#123;</div><div class="line">    <span class="keyword">let</span> tableView: <span class="type">UITableView</span> = <span class="type">UITableView</span>.lj.tableView(dataSource: <span class="keyword">self</span>, delegate: <span class="keyword">self</span>)</div><div class="line">    tableView.backgroundColor = <span class="type">UIColor</span>.lj.background</div><div class="line">    tableView.register(<span class="type">LJTableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: kLJTableViewCell)</div><div class="line">    <span class="keyword">return</span> tableView</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+</li>
+<li><p>CollectionView</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> imageCollectionView: <span class="type">UICollectionView</span> = &#123;</div><div class="line">    <span class="keyword">let</span> layout = <span class="type">UICollectionViewFlowLayout</span>()</div><div class="line">    <span class="keyword">let</span> collection = <span class="type">UICollectionView</span>.lj.collectionView(layout: layout, dataSource: <span class="keyword">self</span>, delegate: <span class="keyword">self</span>)</div><div class="line">    collection.register(<span class="type">LJCollectionViewCell</span>.<span class="keyword">self</span>, forCellWithReuseIdentifier: kLJCollectionViewCell)</div><div class="line">    <span class="keyword">return</span> collection</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+</li>
+<li><p>UILabel，推荐使用fontStyle方法，详情请查看<a href="https://developer.apple.com/videos/play/wwdc2017/245/" target="_blank" rel="external">Building Apps with Dynamic Type</a></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> userNameLabel: <span class="type">UILabel</span> = &#123;</div><div class="line">    <span class="keyword">let</span> label = <span class="type">UILabel</span>.lj.label(textColor: <span class="type">UIColor</span>.lj.text, fontStyle: <span class="type">UIFontTextStyle</span>.headline)</div><div class="line">    <span class="keyword">return</span> label</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+</li>
+<li><p>UIImage</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> logoImageView: <span class="type">UIImageView</span> = &#123;</div><div class="line">    <span class="keyword">let</span> imageView = <span class="type">UIImageView</span>.lj.imageView()</div><div class="line">    <span class="keyword">return</span> imageView</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+</li>
+<li><p>UIButton</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> commentButton: <span class="type">UIButton</span> = &#123;</div><div class="line">    <span class="keyword">let</span> button = <span class="type">UIButton</span>.lj.button(title: <span class="string">"20"</span>, titleColor: <span class="type">UIColor</span>.lj.gray999, fontSize: <span class="number">14</span>, image: #imageLiteral(resourceName: <span class="string">"icon_评论"</span>))</div><div class="line">    <span class="keyword">return</span> button</div><div class="line">&#125;()</div></pre></td></tr></table></figure>
+</li>
+<li><p>UITextField</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">fileprivate</span> <span class="built_in">lazy</span> <span class="keyword">var</span> textField: <span class="type">UITextField</span> = &#123;</div><div class="line">        <span class="keyword">let</span> textField: <span class="type">UITextField</span> = <span class="type">UITextField</span>.lj_textField(placeholder: <span class="string">"placeholder"</span>, leftView: <span class="literal">nil</span>, rightView: <span class="literal">nil</span>)</div><div class="line">        <span class="keyword">return</span> textField</div><div class="line">    &#125;()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li><p>创建图片<br>创建图片主要有两个方法，一个是根据颜色值创建图片，一个是创建二维码图片</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let QRImage = UIImage.lj.QRImage(&quot;test&quot;)</div><div class="line">let colorImage = UIImage.lj.image(with: UIColor.red)</div></pre></td></tr></table></figure>
+</li>
+<li><p>UIButton 内容排列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">commentButton.lj.alignImageRightTitleLeft()</div><div class="line">collectionButton.lj.alignImageUpTitleDown()</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="http://image.ljcoder.com/WechatIMG43.jpeg" alt="enter image description here"></p>
+<ol>
+<li>正则匹配<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">string.lj.matchingRegExp(&quot;^\\+?(?:[1-9]\\d*(?:\\.\\d&#123;1,2&#125;)?|0\\.(?:\\d[1-9]|[1-9]\\d))$&quot;)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="联系我"><a href="#联系我" class="headerlink" title="联系我"></a>联系我</h3><p>有好的建议或者反馈可发Issues</p>
+
       
     </div>
 
@@ -475,8 +528,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -513,7 +575,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -563,6 +625,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LJTool"><span class="nav-number">1.</span> <span class="nav-text">LJTool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LJTool简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">LJTool简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.0.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用"><span class="nav-number">1.0.3.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联系我"><span class="nav-number">1.0.4.</span> <span class="nav-text">联系我</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
